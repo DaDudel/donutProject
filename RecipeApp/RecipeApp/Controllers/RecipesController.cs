@@ -20,9 +20,22 @@ namespace RecipeApp.Controllers
         }
 
         // GET: Recipes
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-              return View(await _context.Recipe.ToListAsync());
+            if (_context.Recipe == null)
+            {
+                return Problem("Entity set 'ReciepAppContext.Recipe'  is null.");
+            }
+
+            var recipes = from m in _context.Recipe
+                         select m;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                recipes = recipes.Where(s => s.Title!.Contains(searchString));
+            }
+
+            return View(await recipes.ToListAsync());
         }
 
         // GET: Recipes/Details/5
