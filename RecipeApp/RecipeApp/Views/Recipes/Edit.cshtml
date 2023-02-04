@@ -37,7 +37,18 @@
                 <input asp-for="Instruction" class="form-control" />
                 <span asp-validation-for="Instruction" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group py-1">
+                <label asp-for="DishType" class="control-label"></label>
+                <select name="DishType">
+                    <option value="">Select a type</option>
+                    <option value="Breakfast">Breakfast</option>
+                    <option value="Lunch">Lunch</option>
+                    <option value="Dinner">Dinner</option>
+                    <option value="Other">Other</option>
+                </select>
+                <span asp-validation-for="DishType" class="text-danger"></span>
+            </div>
+            <div class="form-group py-1">
                 <label asp-for="IsVegan" class="control-label"></label>
                 <input asp-for="IsVegan">
                 <span asp-validation-for="IsVegan" class="text-danger"></span>

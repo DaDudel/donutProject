@@ -8,6 +8,7 @@
         public string Description { get; set; }
         public string Ingridients { get; set; }
         public string Instruction { get; set; }
+        public string DishType { get; set; } = "Other";
         public bool IsVegan { get; set; } = false;
 
     }

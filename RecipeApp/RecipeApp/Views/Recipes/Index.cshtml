@@ -1,4 +1,4 @@
-﻿@model IEnumerable<RecipeApp.Models.Recipe>
+﻿@model RecipeApp.Models.DishTypeViewModel
 
 @{
     ViewData["Title"] = "List of recipes";
@@ -11,7 +11,11 @@
 </p>
 <form asp-controller="Recipes" asp-action="Index" method="get">
     <p>
-        Title: <input type="text" name="SearchString" />
+        <select asp-for="DishType" asp-items="Model.DishTypes">
+            <option value="">All</option>
+        </select>
+
+        Title: <input type="text" asp-for="SearchString" />
         <input type="submit" value="Filter" />
     </p>
 </form>
@@ -19,16 +23,19 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Title)
+                @Html.DisplayNameFor(model => model.Recipes![0].Title)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Author)
+                @Html.DisplayNameFor(model => model.Recipes![0].Author)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+                Dish type
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Ingridients)
+                @Html.DisplayNameFor(model => model.Recipes![0].Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Recipes![0].Ingridients)
             </th>
             <th>
                 Vegan
@@ -37,13 +44,16 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.Recipes!) {
         <tr>
             <td>
                  @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Author)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DishType)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Description)

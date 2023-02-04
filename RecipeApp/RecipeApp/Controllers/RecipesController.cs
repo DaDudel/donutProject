@@ -20,12 +20,16 @@ namespace RecipeApp.Controllers
         }
 
         // GET: Recipes
-        public async Task<IActionResult> Index(string searchString)
+        public async Task<IActionResult> Index(string dishType, string searchString)
         {
             if (_context.Recipe == null)
             {
                 return Problem("Entity set 'ReciepAppContext.Recipe'  is null.");
             }
+
+            IQueryable<string> dishTypeQuery = from m in _context.Recipe
+                                            orderby m.DishType
+                                            select m.DishType;
 
             var recipes = from m in _context.Recipe
                          select m;
@@ -35,7 +39,18 @@ namespace RecipeApp.Controllers
                 recipes = recipes.Where(s => s.Title!.Contains(searchString));
             }
 
-            return View(await recipes.ToListAsync());
+            if (!string.IsNullOrEmpty(dishType))
+            {
+                recipes = recipes.Where(x => x.DishType == dishType);
+            }
+
+            var dishTypeVM = new DishTypeViewModel
+            {
+                DishTypes = new SelectList(await dishTypeQuery.Distinct().ToListAsync()),
+                Recipes = await recipes.ToListAsync()
+            };
+
+            return View(dishTypeVM);
         }
 
         // GET: Recipes/Details/5
@@ -67,7 +82,7 @@ namespace RecipeApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Author,Title,Description,Ingridients,Instruction,IsVegan")] Recipe recipe)
+        public async Task<IActionResult> Create([Bind("Id,Author,Title,Description,Ingridients,Instruction,DishType,IsVegan")] Recipe recipe)
         {
             if (ModelState.IsValid)
             {
@@ -99,7 +114,7 @@ namespace RecipeApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Author,Title,Description,Ingridients,Instruction,IsVegan")] Recipe recipe)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Author,Title,Description,Ingridients,Instruction,DishType,IsVegan")] Recipe recipe)
         {
             if (id != recipe.Id)
             {
