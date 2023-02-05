@@ -82,7 +82,7 @@ namespace RecipeApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Author,Title,Description,Ingridients,Instruction,DishType,IsVegan")] Recipe recipe)
+        public async Task<IActionResult> Create([Bind("Id,Author,Title,Description,Ingridients,Instruction,DishType,IsVegan,Comments")] Recipe recipe)
         {
             if (ModelState.IsValid)
             {
@@ -114,7 +114,7 @@ namespace RecipeApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Author,Title,Description,Ingridients,Instruction,DishType,IsVegan")] Recipe recipe)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Author,Title,Description,Ingridients,Instruction,DishType,IsVegan,Comments")] Recipe recipe)
         {
             if (id != recipe.Id)
             {

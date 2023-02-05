@@ -8,7 +8,6 @@
 
 <div>
     <h4>Author: @Html.DisplayFor(model => model.Author)</h4>
-    <hr />
     <h4>@Html.DisplayFor(model => model.Description)</h4>
     <hr />
     <h4>Ingridients</h4>
@@ -16,8 +15,11 @@
     <hr />
     <h4>Recipe</h4>
     @Html.DisplayFor(model => model.Instruction)
+    <hr />
+    <h4>Notes</h4>
+    @Html.DisplayFor(model => model.Comments)
 </div>
-<div>
+<div class="float-end">
     <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
