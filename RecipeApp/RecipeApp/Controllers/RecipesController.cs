@@ -34,7 +34,7 @@ namespace RecipeApp.Controllers
             var recipes = from m in _context.Recipe
                          select m;
 
-            if (!String.IsNullOrEmpty(searchString))
+            if (!string.IsNullOrEmpty(searchString))
             {
                 recipes = recipes.Where(s => s.Title!.Contains(searchString));
             }

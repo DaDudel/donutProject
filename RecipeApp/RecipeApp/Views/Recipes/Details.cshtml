@@ -16,8 +16,11 @@
     <h4>Recipe</h4>
     @Html.DisplayFor(model => model.Instruction)
     <hr />
-    <h4>Notes</h4>
-    @Html.DisplayFor(model => model.Comments)
+    @if (this.Model.Comments != null)
+    {
+        <h4>Notes</h4>
+        @Html.DisplayFor(model => model.Comments)
+    }
 </div>
 <div class="float-end">
     <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
